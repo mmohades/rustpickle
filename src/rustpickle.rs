@@ -1,4 +1,7 @@
+use bincode;
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::{Read, Write};
 
 pub struct RustPickle {
     map: HashMap<String, String>,
@@ -25,11 +28,29 @@ impl RustPickle {
     }
 
     pub fn read(&mut self) -> Result<String, String> {
-        todo!()
+        let filepath = self.file_path.clone();
+        let mut file = File::open(filepath).unwrap();
+
+        // read bytes
+        let mut buffer = Vec::new();
+        file.read_to_end(&mut buffer).unwrap();
+
+        // deserialize
+        let deserialized: HashMap<String, String> = bincode::deserialize(&buffer).unwrap();
+
+        self.map = deserialized;
+        Ok(String::from("Success"))
     }
 
     pub fn dump(&mut self) -> Result<String, String> {
-        todo!()
+        let serialized = bincode::serialize(&self.map).unwrap();
+
+        let filepath = self.file_path.clone();
+        let mut file = File::create(filepath).unwrap();
+
+        file.write_all(&serialized).unwrap();
+
+        Ok(String::from("success"))
     }
 }
 
