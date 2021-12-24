@@ -1,2 +1,2 @@
-pub use self::rustpickle::{testing, RustPickle};
+pub use self::rustpickle::RustPickle;
 mod rustpickle;

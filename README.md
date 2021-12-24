@@ -1,3 +1,8 @@
+# RustPickle 
+
+### Usage example
+
+```rust
 use rustpickle::RustPickle;
 
 pub fn main() {
@@ -35,3 +40,5 @@ pub fn main() {
         );
     }
 }
+```
+
